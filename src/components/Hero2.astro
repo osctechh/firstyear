@@ -1,13 +1,32 @@
 ---
-
+import CASTILLO from "../../public/CASTILLO.svg";
 ---
 
 <section
-  class="min-h-screen flex items-center justify-center from-pink-100 to-pink-600"
+  class="min-h-screen relative flex items-center justify-center overflow-hidden -mt-20"
 >
-  <div class="text-center px-6">
-    <h2 class="text-5xl font-bold text-pink-600 mb-4">Sección 2</h2>
-    <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+  <img
+    src={CASTILLO.src}
+    alt=""
+    class="absolute inset-x-0 top-0 w-full h-full object-cover z-0 opacity-60 object-top"
+  />
+
+  <!-- Overlay pastel suave con transición superior -->
+  <div
+    class="absolute inset-0 bg-linear-to-b from-white/30 via-purple-100/50 to-pink-100/50 z-10"
+  >
+  </div>
+
+  <!-- Contenido de texto -->
+  <div class="relative z-20 text-center px-3 sm:px-4 md:px-6">
+    <h2
+      class="text-3xl sm:text-4xl md:text-5xl font-bold text-purple-800 mb-3 sm:mb-4 drop-shadow-lg"
+    >
+      Te invito a festejar mi 1er año
+    </h2>
+    <p
+      class="text-base sm:text-lg md:text-xl text-purple-700 max-w-xs sm:max-w-md md:max-w-2xl mx-auto drop-shadow-md"
+    >
       Segunda sección con diferentes colores y contenido. El scroll es suave
       gracias a la clase scroll-smooth.
     </p>

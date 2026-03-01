@@ -2,45 +2,67 @@
 const TIMESTAMP_END = 1777662000000;
 ---
 
-<section class="my-32 flex flex-col gap-y-10 justify-center items-center">
+<section class="flex flex-col gap-y-2 sm:gap-y-3 justify-center items-center">
   <div
-    class="flex flex-row gap-x-10 uppercase font-semibold"
+    class="flex flex-row gap-x-2 sm:gap-x-3 md:gap-x-4 uppercase font-semibold"
     data-date={TIMESTAMP_END}
   >
     <div
-      class="flex flex-col justify-center items-center bg-pink-200 rounded-xl p-2 border-pink-200 border-2 gap-y-2 w-20"
+      class="flex flex-col justify-center items-center bg-gradient-to-br from-pink-300 to-purple-400 rounded-xl p-2 sm:p-2.5 border-2 border-white shadow-lg gap-y-1 w-12 sm:w-14 md:w-16 transform hover:scale-105 transition-transform"
     >
-      <span class="text-6xl font-bold" data-days>00</span>
-      <div class="flex flex-col justify-center items-center">
-        <span class="test-xs text-center">Dias</span>
-      </div>
+      <span
+        class="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md"
+        data-days>00</span
+      >
+      <span class="text-xs sm:text-sm font-semibold text-white">Días</span>
     </div>
 
-    <span aria-hidden="true" class="mt-1 text-2xl">&#58;</span>
+    <span
+      aria-hidden="true"
+      class="mt-1 text-lg sm:text-xl md:text-2xl text-white font-bold drop-shadow-md"
+      >:</span
+    >
 
     <div
-      class="flex flex-col justify-center items-center bg-pink-200 rounded-xl p-2 border-pink-200 border-2 gap-y-2 w-16"
+      class="flex flex-col justify-center items-center bg-gradient-to-br from-purple-400 to-indigo-500 rounded-xl p-2 sm:p-2.5 border-2 border-white shadow-lg gap-y-1 w-12 sm:w-14 md:w-16 transform hover:scale-105 transition-transform"
     >
-      <span class="text-6xl font-bold" data-hours>00</span>
-      <span class="test-xs text-center">Horas</span>
+      <span
+        class="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md"
+        data-hours>00</span
+      >
+      <span class="text-xs sm:text-sm font-semibold text-white">Horas</span>
     </div>
 
-    <span aria-hidden="true" class="mt-1 tet-xl"> :</span>
+    <span
+      aria-hidden="true"
+      class="mt-1 text-lg sm:text-xl md:text-2xl text-white font-bold drop-shadow-md"
+      >:</span
+    >
 
     <div
-      class="flex flex-col justify-center items-center bg-pink-200 rounded-xl p-2 border-pink-200 border-2 gap-y-2 w-16"
+      class="flex flex-col justify-center items-center bg-gradient-to-br from-indigo-500 to-blue-500 rounded-xl p-2 sm:p-2.5 border-2 border-white shadow-lg gap-y-1 w-12 sm:w-14 md:w-16 transform hover:scale-105 transition-transform"
     >
-      <span class="text-6xl font-bold" data-minutes>00</span>
-      <span class="test-xs text-center">Minutos</span>
+      <span
+        class="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md"
+        data-minutes>00</span
+      >
+      <span class="text-xs sm:text-sm font-semibold text-white">Minutos</span>
     </div>
 
-    <span aria-hidden="true" class="mt-1 tet-xl"> :</span>
+    <span
+      aria-hidden="true"
+      class="mt-1 text-lg sm:text-xl md:text-2xl text-white font-bold drop-shadow-md"
+      >:</span
+    >
 
     <div
-      class="flex flex-col justify-center items-center bg-pink-200 rounded-xl p-2 border-pink-200 border-2 gap-y-2 w-16"
+      class="flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-teal-500 rounded-xl p-2 sm:p-2.5 border-2 border-white shadow-lg gap-y-1 w-12 sm:w-14 md:w-16 transform hover:scale-105 transition-transform"
     >
-      <span class="text-6xl font-bold" data-seconds>00</span>
-      <span>Segundos</span>
+      <span
+        class="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md"
+        data-seconds>00</span
+      >
+      <span class="text-xs sm:text-sm font-semibold text-white">Segundos</span>
     </div>
   </div>
 </section>

@@ -1,29 +1,214 @@
 ---
-
+import osito from "../assets/osito.jpg";
+import Palmera from "../assets/Palmera.jpg";
+import pelota from "../assets/pelota.jpg";
+import Countdown from "./Countdown.astro";
 ---
 
-<section class="flex flex-col mt-10 justify-center items-center">
-  <div>
-    <span class="uppercase text-4xl px-2 py-1 font-bold rounded-xl"
-      >Mi primer año</span
+<section class="flex flex-col mt-1 sm:mt-4 md:mt-8 justify-center items-center">
+  <!-- Badge del evento -->
+  <div class="mb-2 sm:mb-8">
+    <span
+      class="uppercase text-2xl sm:text-3xl md:text-4xl px-2 sm:px-3 py-1 font-bold rounded-xl bg-pink-200 text-pink-800"
     >
-    <h2 class="uppercase text-6xl">
-      1 de Mayo
-      <span aria-hidden class="hidden md:inline mx-1"></span>
-      <br aria-hidden class="block md:hidden" />
-      <span>
-        <script is:inline>
-          const END_DATE = 1777662000000;
-          const d = new Date(END_DATE);
-          const date = d.toLocaleDateString("es", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
+      Mi primer año
+    </span>
+  </div>
 
-          const selfScript = document.currentScript;
-          selfScript.parentNode.innerHTML = `${date}`;
-        </script>
-      </span>
+  <!-- Título con fecha -->
+  <div class="text-center mb-2 sm:mb-10">
+    <h2
+      class="uppercase text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-2"
+    >
+      2 de Mayo
     </h2>
+    <span class="text-lg sm:text-xl md:text-2xl text-gray-600">
+      <script is:inline>
+        const END_DATE = 1777748400000;
+        const d = new Date(END_DATE);
+        const date = d.toLocaleDateString("es", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        const selfScript = document.currentScript;
+        selfScript.parentNode.innerHTML = `${date}`;
+      </script>
+    </span>
+  </div>
+
+  <Countdown />
+
+  <!-- Carrusel de fotos -->
+  <div class="w-full max-w-4xl mt-2 mx-auto px-4">
+    <div class="relative">
+      <!-- Contenedor del carrusel -->
+      <div class="overflow-hidden rounded-2xl shadow-2xl">
+        <div
+          class="flex transition-transform duration-500 ease-in-out"
+          id="carousel"
+        >
+          <!-- Imagen 1 -->
+          <div class="w-full shrink-0">
+            <img
+              src={osito.src}
+              alt="Foto 1 del bebé"
+              class="w-full h-64 sm:h-80 md:h-96 object-cover"
+            />
+          </div>
+          <!-- Imagen 2 -->
+          <div class="w-full shrink-0">
+            <img
+              src={Palmera.src}
+              alt="Foto 2 del bebé"
+              class="w-full h-64 sm:h-80 md:h-96 object-cover"
+            />
+          </div>
+          <!-- Imagen 3 -->
+          <div class="w-full shrink-0">
+            <img
+              src={pelota.src}
+              alt="Foto 3 del bebé"
+              class="w-full h-64 sm:h-80 md:h-96 object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de navegación -->
+      <button
+        id="prevBtn"
+        class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110"
+        aria-label="Anterior"
+      >
+        <svg
+          class="w-4 h-4 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button
+        id="nextBtn"
+        class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110"
+        aria-label="Siguiente"
+      >
+        <svg
+          class="w-4 h-4 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <!-- Indicadores -->
+      <div class="flex justify-center mt-4 space-x-2">
+        <button
+          class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-pink-400 transition-all"
+          data-slide="0"></button>
+        <button
+          class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 transition-all"
+          data-slide="1"></button>
+        <button
+          class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 transition-all"
+          data-slide="2"></button>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  function initCarousel() {
+    let currentSlide = 0;
+    const carousel = document.getElementById("carousel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const indicators = document.querySelectorAll("[data-slide]");
+
+    // Validar que los elementos existan
+    if (!carousel || !prevBtn || !nextBtn) {
+      console.error("Elementos del carrusel no encontrados");
+      return;
+    }
+
+    const slides = carousel.children.length;
+
+    function updateCarousel() {
+      if (!carousel) return;
+      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+      // Actualizar indicadores
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.remove("bg-gray-300");
+          indicator.classList.add("bg-pink-400");
+        } else {
+          indicator.classList.remove("bg-pink-400");
+          indicator.classList.add("bg-gray-300");
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides) % slides;
+      updateCarousel();
+    }
+
+    function goToSlide(slideIndex: number) {
+      currentSlide = slideIndex;
+      updateCarousel();
+    }
+
+    // Event listeners
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener("click", () => goToSlide(index));
+    });
+
+    // Autoplay opcional (cada 5 segundos)
+    setInterval(nextSlide, 5000);
+
+    // Touch/swipe support para móviles
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }
+  }
+
+  // Esperar a que el DOM esté completamente cargado
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCarousel);
+  } else {
+    initCarousel();
+  }
+</script>
