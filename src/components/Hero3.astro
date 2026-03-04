@@ -1,10 +1,67 @@
 ---
 import bebe from "../../public/sinfondo.svg";
+import Whatsapp from "../../public/whatsapp.svg";
 ---
 
 <section
   class="min-h-screen relative flex items-center justify-center overflow-hidden"
 >
+  <!-- Audio de fondo con controles -->
+  <audio id="musica-fondo" loop>
+    <source src="/musica-fondo.mp3" type="audio/mpeg" />
+    <source src="/musica-fondo.ogg" type="audio/ogg" />
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <!-- Controles de música -->
+  <div
+    class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+  >
+    <button
+      id="play-pause-btn"
+      class="w-10 h-10 bg-pink-500 hover:bg-pink-600 text-white rounded-full flex items-center justify-center transition-all hover:scale-110"
+      aria-label="Reproducir/Pausar música"
+    >
+      <svg
+        id="play-icon"
+        class="w-5 h-5 hidden"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M8 5v14l11-7z"></path>
+      </svg>
+      <svg
+        id="pause-icon"
+        class="w-5 h-5"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+      </svg>
+    </button>
+
+    <div class="flex items-center gap-2">
+      <svg
+        class="w-4 h-4 text-gray-600"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M3 9v6h4l5-5v10l-5-5h4V9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02V12c0-1.8-1.5-3.5-2.5-4.5z"
+        ></path>
+      </svg>
+      <input
+        type="range"
+        id="volume-control"
+        min="0"
+        max="100"
+        value="30"
+        class="w-20 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+        aria-label="Control de volumen"
+      />
+    </div>
+  </div>
+
   <img
     src={bebe.src}
     alt=""
@@ -24,6 +81,13 @@ import bebe from "../../public/sinfondo.svg";
     >
       Confirmar asistencia.
     </h2>
+    <a
+      href="https://wa.me/542995693132"
+      target="_blank"
+      aria-label="Contactar por WhatsApp"
+    >
+      <img src={Whatsapp.src} alt="WhatsApp" class="inline-block w-12 h-12" />
+    </a>
     <p
       class="text-base sm:text-lg md:text-xl text-purple-700 max-w-xs sm:max-w-md md:max-w-2xl mx-auto drop-shadow-md"
     >
@@ -32,3 +96,71 @@ import bebe from "../../public/sinfondo.svg";
     </p>
   </div>
 </section>
+
+<script>
+  let isPlaying = false;
+  const audio = document.getElementById("musica-fondo") as HTMLAudioElement;
+  const playPauseBtn = document.getElementById("play-pause-btn");
+  const playIcon = document.getElementById("play-icon");
+  const pauseIcon = document.getElementById("pause-icon");
+  const volumeControl = document.getElementById(
+    "volume-control",
+  ) as HTMLInputElement;
+
+  // Configurar volumen inicial
+  if (audio) {
+    audio.volume = 0.3;
+  }
+
+  // Función play/pause
+  function togglePlayPause() {
+    if (!audio || !playIcon || !pauseIcon) return;
+
+    if (isPlaying) {
+      audio.pause();
+      playIcon.classList.remove("hidden");
+      pauseIcon.classList.add("hidden");
+    } else {
+      audio.play();
+      playIcon.classList.add("hidden");
+      pauseIcon.classList.remove("hidden");
+    }
+    isPlaying = !isPlaying;
+  }
+
+  // Función volumen
+  function updateVolume() {
+    if (audio && volumeControl) {
+      audio.volume = volumeControl.valueAsNumber / 100;
+    }
+  }
+
+  // Event listeners
+  if (playPauseBtn) {
+    playPauseBtn.addEventListener("click", togglePlayPause);
+  }
+
+  if (volumeControl) {
+    volumeControl.addEventListener("input", updateVolume);
+  }
+
+  // Intentar autoplay (puede ser bloqueado)
+  document.addEventListener(
+    "click",
+    function initAudio() {
+      if (!isPlaying && audio) {
+        audio
+          .play()
+          .then(() => {
+            isPlaying = true;
+            if (playIcon) playIcon.classList.add("hidden");
+            if (pauseIcon) pauseIcon.classList.remove("hidden");
+          })
+          .catch(() => {
+            // Autoplay bloqueado - esperar interacción del usuario
+          });
+      }
+    },
+    { once: true },
+  );
+</script>
