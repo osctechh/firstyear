@@ -16,39 +16,59 @@ import Princesa from "../assets/pincesa.webp";
           class="flex transition-transform duration-500 ease-in-out"
           id="carousel"
         >
-          <div class="w-full shrink-0">
+          <div class="w-full shrink-0 relative group">
+            <div
+              class="absolute inset-0 border-4 border-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            >
+            </div>
             <img
               src={osito.src}
               alt="Foto 1 del bebé"
-              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover"
+              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div class="w-full shrink-0">
+          <div class="w-full shrink-0 relative group">
+            <div
+              class="absolute inset-0 border-4 border-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+            >
+            </div>
             <img
               src={Palmera.src}
               alt="Foto 2 del bebé"
-              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover"
+              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div class="w-full shrink-0">
+          <div class="w-full shrink-0 relative group">
+            <div
+              class="absolute inset-0 border-4 border-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+            >
+            </div>
             <img
               src={pelota.src}
               alt="Foto 3 del bebé"
-              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover"
+              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div class="w-full shrink-0">
+          <div class="w-full shrink-0 relative group">
+            <div
+              class="absolute inset-0 border-4 border-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+            >
+            </div>
             <img
               src={Navidad.src}
-              alt="Foto 3 del bebé"
-              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover"
+              alt="Foto 4 del bebé"
+              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div class="w-full shrink-0">
+          <div class="w-full shrink-0 relative group">
+            <div
+              class="absolute inset-0 border-4 border-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+            >
+            </div>
             <img
               src={Princesa.src}
-              alt="Foto 3 del bebé"
-              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover"
+              alt="Foto 5 del bebé"
+              class="w-full h-80 sm:h-96 md:h-128 lg:h-144 object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </div>
@@ -56,7 +76,7 @@ import Princesa from "../assets/pincesa.webp";
 
       <button
         id="prevBtn"
-        class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110"
+        class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110 z-10"
         aria-label="Anterior"
       >
         <svg
@@ -74,7 +94,7 @@ import Princesa from "../assets/pincesa.webp";
       </button>
       <button
         id="nextBtn"
-        class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110"
+        class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow-lg transition-all hover:scale-110 z-10"
         aria-label="Siguiente"
       >
         <svg
@@ -101,7 +121,89 @@ import Princesa from "../assets/pincesa.webp";
         <button
           class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 transition-all"
           data-slide="2"></button>
+        <button
+          class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 transition-all"
+          data-slide="3"></button>
+        <button
+          class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 transition-all"
+          data-slide="4"></button>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  let currentSlide = 0;
+  const carousel = document.getElementById("carousel");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const indicators = document.querySelectorAll("[data-slide]");
+
+  // Validar que los elementos existan
+  if (!carousel || !prevBtn || !nextBtn) {
+    console.error("Elementos del carrusel no encontrados");
+    return;
+  }
+
+  const slides = carousel.children.length;
+
+  function updateCarousel() {
+    if (!carousel) return;
+    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Actualizar indicadores
+    indicators.forEach((indicator, index) => {
+      if (index === currentSlide) {
+        indicator.classList.remove("bg-gray-300");
+        indicator.classList.add("bg-pink-400");
+      } else {
+        indicator.classList.remove("bg-pink-400");
+        indicator.classList.add("bg-gray-300");
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides) % slides;
+    updateCarousel();
+  }
+
+  function goToSlide(slideIndex: number) {
+    currentSlide = slideIndex;
+    updateCarousel();
+  }
+
+  // Event listeners
+  nextBtn.addEventListener("click", nextSlide);
+  prevBtn.addEventListener("click", prevSlide);
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", () => goToSlide(index));
+  });
+
+  // Autoplay opcional (cada 5 segundos)
+  setInterval(nextSlide, 5000);
+
+  // Touch/swipe support para móviles
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  carousel.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  carousel.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (touchEndX < touchStartX - 50) nextSlide();
+    if (touchEndX > touchStartX + 50) prevSlide();
+  }
+</script>
