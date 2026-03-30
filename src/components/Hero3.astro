@@ -1,6 +1,6 @@
 ---
-import mapCumple from "../assets/snazzy-image.webp";
-import imgOri from "../../public/sinfondo.svg";
+import mapCumple from "../assets/ubi.png";
+import imgOri from "../../public/HADAS.svg";
 import Whatsapp from "../../public/whatsapp.svg";
 ---
 
@@ -16,16 +16,16 @@ import Whatsapp from "../../public/whatsapp.svg";
 
   <!-- Controles de música -->
   <div
-    class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg"
+    class="fixed top-2 sm:top-4 right-2 sm:right-4 z-50 flex items-center gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-full p-1 sm:p-2 shadow-lg"
   >
     <button
       id="play-pause-btn"
-      class="w-10 h-10 bg-pink-500 hover:bg-pink-600 text-white rounded-full flex items-center justify-center transition-all hover:scale-110"
+      class="w-8 h-8 sm:w-10 sm:h-10 bg-pink-500 hover:bg-pink-600 text-white rounded-full flex items-center justify-center transition-all hover:scale-110"
       aria-label="Reproducir/Pausar música"
     >
       <svg
         id="play-icon"
-        class="w-5 h-5 hidden"
+        class="w-3 h-3 sm:w-5 sm:h-5 hidden"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -33,7 +33,7 @@ import Whatsapp from "../../public/whatsapp.svg";
       </svg>
       <svg
         id="pause-icon"
-        class="w-5 h-5"
+        class="w-3 h-3 sm:w-5 sm:h-5"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -41,9 +41,9 @@ import Whatsapp from "../../public/whatsapp.svg";
       </svg>
     </button>
 
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-1 sm:gap-2">
       <svg
-        class="w-4 h-4 text-gray-600"
+        class="w-3 h-3 sm:w-4 sm:h-4 text-gray-600"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -57,7 +57,7 @@ import Whatsapp from "../../public/whatsapp.svg";
         min="0"
         max="100"
         value="30"
-        class="w-20 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+        class="w-12 sm:w-20 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
         aria-label="Control de volumen"
       />
     </div>
